@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificaciones</title>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Notificaciones</h1>
+        <ul>
+            {% for notificacion in notificaciones %}
+                <li>
+                    {{ notificacion.mensaje }} - 
+                    {% if notificacion.leido %}
+                        <strong>Leído</strong>
+                    {% else %}
+                        <strong>No leído</strong>
+                    {% endif %}
+                </li>
+            {% empty %}
+                <li>No tienes notificaciones.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

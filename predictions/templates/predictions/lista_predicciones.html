@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Predicciones</title>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Mis Predicciones</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Partido</th>
+                    <th>Ganador Predicho</th>
+                    <th>Fecha de Predicción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for prediccion in predicciones %}
+                <tr>
+                    <td>{{ prediccion.partido }}</td>
+                    <td>{{ prediccion.ganador_predicho }}</td>
+                    <td>{{ prediccion.fecha_creacion }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">No has hecho ninguna predicción.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</body>
+
+</html>

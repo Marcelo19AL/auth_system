@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Partidos Disponibles</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Partidos Disponibles para Pronóstico</h1>
+        
+        {% if partidos %}
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Deporte</th>
+                        <th scope="col">Equipo 1</th>
+                        <th scope="col">Equipo 2</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Ubicación</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for partido in partidos %}
+                    <tr>
+                        <td>{{ partido.deporte.nombre }}</td>
+                        <td>{{ partido.equipo1 }}</td>
+                        <td>{{ partido.equipo2 }}</td>
+                        <td>{{ partido.fecha_partido|date:"d/m/Y H:i" }}</td>
+                        <td>{{ partido.ubicacion }}</td>
+                        <td>
+                            <span class="badge 
+                                {% if partido.estado == 'programado' %}badge-primary
+                                {% elif partido.estado == 'en progreso' %}badge-warning
+                                {% elif partido.estado == 'finalizado' %}badge-success
+                                {% else %}badge-secondary
+                                {% endif %}">
+                                {{ partido.estado }}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="{% url 'hacer_prediccion' partido.id %}" class="btn btn-sm btn-primary">
+                                Hacer Pronóstico
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-warning text-center" role="alert">
+                No hay partidos disponibles para pronosticar.
+            </div>
+        {% endif %}
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'agregar_partido' %}" class="btn btn-primary">Agregar Nuevo Partido</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
